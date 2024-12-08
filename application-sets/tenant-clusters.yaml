@@ -5,14 +5,14 @@ metadata:
   namespace: openshift-gitops
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
-      revision: main
-      directories:
-        - path: sites/site-a/clusters/*
+    - git:
+        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
+        revision: main
+        files:
+          - path: sites/*/clusters/*.yaml
   template:
     metadata:
-      name: "tenant-a-tenant-cluster"
+      name: "{{path.basename}}-tenant-cluster"
     spec:
       project: default
       source:
@@ -22,13 +22,12 @@ spec:
         helm:
           valueFiles:
             - ../global-values/values.yaml
-            - ../sites/site-a/site.yaml
-            - ../sites/site-a/clusters/tenant-a-values.yaml
+            - ../sites/{{path.dirname | split "/" | nth 1}}/site.yaml
+            - ../{{path}}
       destination:
         server: https://kubernetes.default.svc
-        namespace: clusters
+        namespace: "{{path.basename}}"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-          
