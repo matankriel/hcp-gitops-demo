@@ -1,14 +1,27 @@
-controlPlane:
-  name: tenant-a-control-plane
-  namespace: tenant-a
-  releaseImage: quay.io/openshift-release-dev/ocp-release:4.13.0-x86_64
-  platformType: AWS
+pullSecret:
+  name: tenant-a-pull-secret
+  data: "eyJhdXRocyI6IHsiY2xvdWQub3BlbnNoaWZ0LmNvbSI6IHsiYXV0aCI6ICJiM0JsYm5Ob2FXWj..."
+
+etcdEncryptionKey:
+  name: cluster1-etcd-encryption-key
+  data: "TMHG6olDllzLQHWnNHByrxJ9Yg1rCAcHpgzRd4GK0cs="
+
+hostedControlPlane:
+  name: tenant-a
+  infraID: tenant-a-gr5wv
+  releaseImage: quay.io/openshift-release-dev/ocp-release:4.16.15-x86_64
+  baseDomain: ""
+  platformType: KubeVirt
+  #networkType: OVNKubernetes
+  #clusterNetworkCIDR: 10.132.0.0/14
+  #serviceNetworkCIDR: 172.31.0.0/16
+  storageSize: 8Gi
 
 nodePool:
-  name: tenant-a-nodepool
-  namespace: tenant-a
-  replicas: 3
-  platformType: AWS
-  platform:
-    aws:
-      instanceType: m5.large
+  name: tenant-a
+  replicas: 2
+  releaseImage: quay.io/openshift-release-dev/ocp-release:4.16.15-x86_64
+  platformType: KubeVirt
+  cores: 2
+  memory: 6Gi
+  rootVolumeSize: 32Gi
