@@ -18,17 +18,14 @@ spec:
       - cidr: {{ .Values.hostedControlPlane.serviceNetworkCIDR }}
     networkType: {{ .Values.hostedControlPlane.networkType }}
   etcd:
+    managementType: {{ .Values.hostedControlPlane.etcd.managementType | quote }}
     managed:
       storage:
+        type: {{ .Values.hostedControlPlane.etcd.managed.storage.type | quote }}
         persistentVolume:
-          size: {{ .Values.hostedControlPlane.storageSize }}
+          size: {{ .Values.hostedControlPlane.etcd.managed.storage.persistentVolume.size }}
   pullSecret:
     name: {{ .Values.pullSecret.name }}
-  secretEncryption:
-    aescbc:
-      activeKey:
-        name: {{ .Values.etcdEncryptionKey.name }}
-    type: aescbc
   services:
     - service: APIServer
       servicePublishingStrategy:
