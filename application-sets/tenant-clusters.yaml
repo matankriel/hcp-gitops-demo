@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/<your-repo>
+        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
         revision: main
         directories:
           - path: sites/*/clusters/*.yaml
@@ -16,7 +16,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/<your-repo>
+        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
         path: tenant-chart
         targetRevision: main
         helm:
