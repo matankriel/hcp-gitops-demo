@@ -21,4 +21,7 @@ spec:
         type: Persistent
   management:
     replace:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 0
       strategy: {{ .Values.nodePool.management.replace.strategy | quote }}
