@@ -5,11 +5,11 @@ metadata:
   namespace: openshift-gitops
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
-        revision: main
-        directories:
-          - path: sites/site-a/clusters/tenant-a-values.yaml
+  - git:
+      repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
+      revision: main
+      directories:
+        - path: sites/site-a/clusters/tenant-a-values.yaml
   template:
     metadata:
       name: "tenant-a-tenant-cluster"
