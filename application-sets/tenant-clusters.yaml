@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tenant-clusters
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/<your-repo>
+        revision: main
+        directories:
+          - path: sites/*/clusters/*.yaml
+  template:
+    metadata:
+      name: '{{path.basename}}-tenant-cluster'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/<your-repo>
+        path: tenant-chart
+        targetRevision: main
+        helm:
+          valueFiles:
+            - global-values/values.yaml
+            - sites/{{path.dirname | split "/" | nth 1}}/site.yaml
+            - {{path}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

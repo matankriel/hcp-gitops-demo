@@ -1,0 +1,13 @@
+apiVersion: operator.openshift.io/v1alpha1
+kind: ImageContentSourcePolicy
+metadata:
+  name: global-icsp
+spec:
+  repositoryDigestMirrors:
+    {{- range .Values.imageContentSources }}
+    - source: {{ .source }}
+      mirrors:
+        {{- range .mirrors }}
+        - {{ . }}
+        {{- end }}
+    {{- end }}

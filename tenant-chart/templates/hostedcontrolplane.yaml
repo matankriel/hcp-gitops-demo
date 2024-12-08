@@ -1,0 +1,10 @@
+apiVersion: hypershift.openshift.io/v1beta1
+kind: HostedControlPlane
+metadata:
+  name: {{ .Values.controlPlane.name }}
+  namespace: {{ .Values.controlPlane.namespace }}
+spec:
+  release:
+    image: {{ .Values.controlPlane.releaseImage }}
+  platform:
+    type: {{ .Values.controlPlane.platformType }}

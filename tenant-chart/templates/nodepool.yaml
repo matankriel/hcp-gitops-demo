@@ -1,0 +1,14 @@
+apiVersion: hypershift.openshift.io/v1beta1
+kind: NodePool
+metadata:
+  name: {{ .Values.nodePool.name }}
+  namespace: {{ .Values.nodePool.namespace }}
+spec:
+  clusterName: {{ .Values.controlPlane.name }}
+  replicas: {{ .Values.nodePool.replicas }}
+  platform:
+    type: {{ .Values.nodePool.platformType }}
+    {{- if .Values.nodePool.platform.aws }}
+    aws:
+      instanceType: {{ .Values.nodePool.platform.aws.instanceType }}
+    {{- end }}

@@ -1,0 +1,7 @@
+namespaces:
+  - name: hub-a-monitoring
+
+imageContentSources:
+  - source: quay.io/openshift-release-dev/ocp-release
+    mirrors:
+      - hub-a.registry.local/ocp-release

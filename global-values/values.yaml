@@ -1,0 +1,18 @@
+namespaces:
+  - name: openshift-monitoring
+  - name: openshift-ingress
+
+operators:
+  - name: cluster-monitoring-operator
+    namespace: openshift-monitoring
+    source: redhat-operators
+    channel: stable
+  - name: cluster-ingress-operator
+    namespace: openshift-ingress
+    source: redhat-operators
+    channel: stable
+
+imageContentSources:
+  - source: quay.io/openshift-release-dev/ocp-release
+    mirrors:
+      - global.registry.local/ocp-release

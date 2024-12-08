@@ -1,0 +1,14 @@
+controlPlane:
+  name: tenant-a-control-plane
+  namespace: tenant-a
+  releaseImage: quay.io/openshift-release-dev/ocp-release:4.13.0-x86_64
+  platformType: AWS
+
+nodePool:
+  name: tenant-a-nodepool
+  namespace: tenant-a
+  replicas: 3
+  platformType: AWS
+  platform:
+    aws:
+      instanceType: m5.large

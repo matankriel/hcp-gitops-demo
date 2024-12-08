@@ -1,0 +1,4 @@
+apiVersion: v2
+name: hub-infrastructure-chart
+description: Helm chart for hub infrastructure
+version: 0.1.0
