@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: hub-infrastructure
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   generators:
     - git:
-        repoURL: https://github.com/<your-repo>
+        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
         revision: main
         directories:
           - path: sites/*/hub-clusters/*.yaml
@@ -16,14 +16,14 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/<your-repo>
+        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
         path: hub-infrastructure-chart
         targetRevision: main
         helm:
           valueFiles:
             - global-values/values.yaml
             - sites/{{path.dirname | split "/" | nth 1}}/site.yaml
-            - {{path}}
+            - "{{path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
