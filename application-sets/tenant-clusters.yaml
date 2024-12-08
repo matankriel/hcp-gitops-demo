@@ -21,9 +21,9 @@ spec:
         targetRevision: main
         helm:
           valueFiles:
-            - global-values/values.yaml
-            - sites/{{path.dirname | split "/" | nth 1}}/site.yaml
-            - "{{path}}"
+            - ../global-values/values.yaml
+            - ../sites/{{path.dirname | split "/" | nth 1}}/site.yaml
+            - ../"{{path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
