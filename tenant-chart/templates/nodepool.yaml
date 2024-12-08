@@ -2,13 +2,20 @@ apiVersion: hypershift.openshift.io/v1beta1
 kind: NodePool
 metadata:
   name: {{ .Values.nodePool.name }}
-  namespace: {{ .Values.nodePool.namespace }}
+  namespace: {{ .Values.namespace }}
 spec:
-  clusterName: {{ .Values.controlPlane.name }}
+  clusterName: {{ .Values.hostedControlPlane.name }}
   replicas: {{ .Values.nodePool.replicas }}
+  release:
+    image: {{ .Values.nodePool.releaseImage }}
   platform:
     type: {{ .Values.nodePool.platformType }}
-    {{- if .Values.nodePool.platform.aws }}
-    aws:
-      instanceType: {{ .Values.nodePool.platform.aws.instanceType }}
-    {{- end }}
+    kubevirt:
+      attachDefaultNetwork: true
+      compute:
+        cores: {{ .Values.nodePool.cores }}
+        memory: {{ .Values.nodePool.memory }}
+      rootVolume:
+        persistent:
+          size: {{ .Values.nodePool.rootVolumeSize }}
+        type: Persistent
