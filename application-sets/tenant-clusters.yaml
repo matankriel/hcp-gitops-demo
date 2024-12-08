@@ -22,8 +22,8 @@ spec:
         helm:
           valueFiles:
             - ../global-values/values.yaml
-            - ../sites/'{{.path.basename}}' | split "/" | nth 1}}/site.yaml
-            - ../"{{.path}}"
+            - ../sites/site-a/site.yaml
+            - ../sites/site-a/clusters/tenant-a-values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: clusters
@@ -31,3 +31,4 @@ spec:
         automated:
           prune: true
           selfHeal: true
+          
