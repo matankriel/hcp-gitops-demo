@@ -1,6 +1,7 @@
 namespaces:
   - name: openshift-monitoring
   - name: openshift-ingress
+  - name: clusters
 
 operators:
   - name: cluster-monitoring-operator
