@@ -12,10 +12,13 @@ hostedControlPlane:
   releaseImage: quay.io/openshift-release-dev/ocp-release:4.16.15-x86_64
   baseDomain: ""
   platformType: KubeVirt
-  #networkType: OVNKubernetes
-  #clusterNetworkCIDR: 10.132.0.0/14
-  #serviceNetworkCIDR: 172.31.0.0/16
-  storageSize: 8Gi
+  etcd:
+    managementType: Managed
+    managed:
+      storage:
+        type: PersistentVolume
+        persistentVolume:
+          size: 8Gi
 
 nodePool:
   name: tenant-a
@@ -25,3 +28,6 @@ nodePool:
   cores: 2
   memory: 6Gi
   rootVolumeSize: 32Gi
+  management:
+    replace:
+      strategy: RollingUpdate
