@@ -19,3 +19,6 @@ spec:
         persistent:
           size: {{ .Values.nodePool.rootVolumeSize }}
         type: Persistent
+  management:
+    replace:
+      strategy: {{ .Values.nodePool.management.replace.strategy | quote }}
