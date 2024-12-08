@@ -1,10 +1,48 @@
 apiVersion: hypershift.openshift.io/v1beta1
-kind: HostedControlPlane
+kind: HostedCluster
 metadata:
-  name: {{ .Values.controlPlane.name }}
-  namespace: {{ .Values.controlPlane.namespace }}
+  name: {{ .Values.hostedControlPlane.name }}
+  namespace: {{ .Values.namespace }}
 spec:
+  infraID: {{ .Values.hostedControlPlane.infraID }}
   release:
-    image: {{ .Values.controlPlane.releaseImage }}
+    image: {{ .Values.hostedControlPlane.releaseImage }}
   platform:
-    type: {{ .Values.controlPlane.platformType }}
+    type: {{ .Values.hostedControlPlane.platformType }}
+    kubevirt:
+      baseDomainPassthrough: true
+  networking:
+    clusterNetwork:
+      - cidr: {{ .Values.hostedControlPlane.clusterNetworkCIDR }}
+    serviceNetwork:
+      - cidr: {{ .Values.hostedControlPlane.serviceNetworkCIDR }}
+    networkType: {{ .Values.hostedControlPlane.networkType }}
+  etcd:
+    managed:
+      storage:
+        persistentVolume:
+          size: {{ .Values.hostedControlPlane.storageSize }}
+  pullSecret:
+    name: {{ .Values.pullSecret.name }}
+  secretEncryption:
+    aescbc:
+      activeKey:
+        name: {{ .Values.etcdEncryptionKey.name }}
+    type: aescbc
+  services:
+    - service: APIServer
+      servicePublishingStrategy:
+        type: LoadBalancer
+    - service: OAuthServer
+      servicePublishingStrategy:
+        type: Route
+    - service: Konnectivity
+      servicePublishingStrategy:
+        type: Route
+    - service: Ignition
+      servicePublishingStrategy:
+        type: Route
+    - service: OVNSbDb
+      servicePublishingStrategy:
+        type: Route
+  controllerAvailabilityPolicy: HighlyAvailable
