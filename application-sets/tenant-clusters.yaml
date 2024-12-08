@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
         revision: main
         directories:
-          - path: sites/*/clusters/*.yaml
+          - path: ../sites/*/clusters/*.yaml
   template:
     metadata:
       name: '{{path.basename}}-tenant-cluster'
