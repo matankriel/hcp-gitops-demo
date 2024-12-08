@@ -23,7 +23,7 @@ spec:
           valueFiles:
             - ../global-values/values.yaml
             - ../sites/{{path.dirname | split "/" | nth 1}}/site.yaml
-            - ../'{{.path}}'
+            - ../"{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: clusters
