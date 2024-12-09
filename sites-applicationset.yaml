@@ -24,7 +24,7 @@ spec:
             - name: site
               value: '{{path.basename}}'
             - name: path
-              value: '{{Path}}'
+              value: '{{path}}'
             - name: pathDir
               value: '{{path.dir}}'
             - name: pathFilename
