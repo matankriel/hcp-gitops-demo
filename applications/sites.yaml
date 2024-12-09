@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git' # GitOps repository URL
-    targetRevision: main                                  # Branch or tag to pull from
+    targetRevision: kriel                                  # Branch or tag to pull from
     path: application-sets/sites.yaml       # Path to the sites ApplicationSet YAML in the repository
   destination:
     server: https://kubernetes.default.svc               # Default ArgoCD destination server

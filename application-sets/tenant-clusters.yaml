@@ -7,7 +7,7 @@ spec:
   generators:
     - git:
         repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
-        revision: main
+        revision: kriel
         files:
           - path: sites/{{parameters.site}}/clusters/*.yaml # Restrict to the passed site
     - parameters:
@@ -20,7 +20,7 @@ spec:
       source:
         repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
         path: tenant-chart
-        targetRevision: main
+        targetRevision: kriel
         helm:
           valueFiles:
             - global-values/values.yaml

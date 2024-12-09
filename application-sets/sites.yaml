@@ -19,7 +19,7 @@ spec:
         project: default
         source:
           repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
-          targetRevision: main
+          targetRevision: kriel
           path: application-sets/hub-infrastructure.yaml
         helm:
           parameters:
@@ -40,7 +40,7 @@ spec:
         project: default
         source:
           repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
-          targetRevision: main
+          targetRevision: kriel
           path: application-sets/tenant-clusters.yaml
         helm:
           parameters:
