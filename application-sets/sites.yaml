@@ -7,24 +7,49 @@ spec:
   generators:
     - list:
         elements:
-        - name: hub-infra-clusters
+          - name: site-a
+            path: sites/site-a
+          - name: site-b
+            path: sites/site-b
+  templates:
+    # Template for Hub Clusters
+    - metadata:
+        name: '{{.name}}-hub-clusters'
+      spec:
+        project: default
+        source:
+          repoURL: 'https://github.com/your-org/gitops-repo.git'
+          targetRevision: main
           path: application-sets/hub-infrastructure.yaml
-        - name: tenant-clusters
+        helm:
+          parameters:
+            - name: site
+              value: '{{.name}}' # Pass the site context
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: argocd
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+
+    # Template for Tenant Clusters
+    - metadata:
+        name: '{{.name}}-tenant-clusters'
+      spec:
+        project: default
+        source:
+          repoURL: 'https://github.com/your-org/gitops-repo.git'
+          targetRevision: main
           path: application-sets/tenant-clusters.yaml
-        
-  template:
-    metadata:
-      name: '{{.name}}'
-    spec:
-      project: default
-      source:
-        repoURL: 'https://github.com/your-org/gitops-repo.git'
-        targetRevision: main
-        path: sites
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: site-namespace
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        helm:
+          parameters:
+            - name: site
+              value: '{{.name}}' # Pass the site context
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: argocd
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true

@@ -2,31 +2,33 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: tenant-clusters
-  namespace: openshift-gitops
+  namespace: argocd
 spec:
   generators:
     - git:
-        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
+        repoURL: 'https://github.com/your-org/gitops-repo.git'
         revision: main
         files:
-          - path: sites/*/clusters/*.yaml
+          - path: sites/{{parameters.site}}/clusters/*.yaml # Restrict to the passed site
+    - parameters:
+        - name: site # Use the passed site from parent
   template:
     metadata:
-      name: "{{path.filename}}-tenant-cluster"
+      name: '{{path.filename}}-tenant-cluster'
     spec:
       project: default
       source:
-        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
+        repoURL: 'https://github.com/your-org/gitops-repo.git'
         path: tenant-chart
         targetRevision: main
         helm:
           valueFiles:
-            - ../global-values/values.yaml
-            - ../{{path}}/site-tenant.yaml
-            - ../{{path}}/{{path.filename}}
+            - global-values/values.yaml
+            - '{{path.dir}}/../../site.yaml'
+            - '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: clusters-"{{path.basename}}"
+        namespace: '{{path.filename}}-namespace'
       syncPolicy:
         automated:
           prune: true

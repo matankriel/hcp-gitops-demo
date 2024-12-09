@@ -2,34 +2,33 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: hub-infrastructure
-  namespace: openshift-gitops
+  namespace: argocd
 spec:
   generators:
-    - list:
-        elements:
-        - name: site-a-hub-cluster
-          path: sites/site-a/hub-clusters/hub-a-values.yaml
-        - name: site-b-hub-cluster
-          path: sites/site-b/hub-clusters/hub-b-values.yaml
+    - git:
+        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        revision: main
+        files:
+          # Dynamically match hub-clusters YAMLs for the specific site
+          - path: sites/{{parameters.site}}/hub-clusters/*.yaml
   template:
     metadata:
-      name: '{{.name}}'
+      name: '{{parameters.site}}-{{path.basename}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
-        path: hub-infrastructure-chart
+        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        path: hub-infrastructure-chart # Path to the Helm chart for hub clusters
         targetRevision: main
         helm:
           valueFiles:
-            - global-values/values.yaml
-            - '{{path.dirname}}/site-hub.yaml'
-            - "{{path}}"
+            - global-values/values.yaml                # Global values
+            - sites/{{parameters.site}}/site.yaml      # Site-specific values
+            - '{{path}}'                               # Cluster-specific values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: '{{parameters.site}}-hub-cluster'  # Namespace based on the site
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-  #sites/{{path.dirname | split "/" | nth 1}}/site-hub.yaml
