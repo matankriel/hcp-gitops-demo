@@ -21,13 +21,16 @@ spec:
         path: application-sets/ # Apply the relevant ApplicationSet for each site
         helm:
           parameters:
-            - name: testparam
-              value: valuetest
-              site: '{{path.basename}}' # Dynamically pass the site name
-              path: '{{Path}}'
-              path-dir: '{{path.dir}}'
-              path.filename: '{{path.filename}}'
-              path.basename: '{{path.basename}}'
+            - name: site
+              value: '{{path.basename}}'
+            - name: path
+              value: '{{Path}}'
+            - name: pathDir
+              value: '{{path.dir}}'
+            - name: pathFilename
+              value: '{{path.filename}}'
+            - name: pathBasename
+              value: '{{path.basename}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: openshift-gitops
