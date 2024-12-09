@@ -9,7 +9,7 @@ spec:
         repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
         revision: kriel
         files:
-          - path: sites/{{parameters.site}}/clusters/*.yaml # Restrict to the passed site
+          - path: sites/{{ .Values.parameters.site }}/clusters/*.yaml # Restrict to the passed site
     - parameters:
         - name: site # Use the passed site from parent
   template:
@@ -28,7 +28,7 @@ spec:
             - '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.filename}}-namespace'
+        namespace: 'clusters-{{path.filename}}'
       syncPolicy:
         automated:
           prune: true

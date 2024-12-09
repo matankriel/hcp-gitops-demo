@@ -10,10 +10,10 @@ spec:
         revision: kriel
         files:
           # Dynamically match hub-clusters YAMLs for the specific site
-          - path: sites/{{parameters.site}}/hub-clusters/*.yaml
+          - path: sites/{{ .Values.parameters.site }}/hub-clusters/*.yaml
   template:
     metadata:
-      name: '{{parameters.site}}-{{path.basename}}'
+      name: '{{ .Values.parameters.site }}-{{path.basename}}'
     spec:
       project: default
       source:
@@ -27,7 +27,7 @@ spec:
             - '{{path}}'                               # Cluster-specific values
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{parameters.site}}-hub-cluster'  # Namespace based on the site
+        namespace: '{{ .Values.parameters.site }}-hub-cluster'  # Namespace based on the site
       syncPolicy:
         automated:
           prune: true
