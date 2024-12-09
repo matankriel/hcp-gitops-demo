@@ -5,14 +5,15 @@ metadata:
   namespace: openshift-gitops
 spec:
   generators:
-    - git:
-        repoURL: https://github.com/IdanHenik/hcp-gitops-demo.git
-        revision: main
-        directories:
-          - path: sites/*/hub-clusters/*.yaml
+    - list:
+        elements:
+        - name: site-a-hub-cluster
+          path: sites/site-a/hub-clusters/hub-a-values.yaml
+        - name: site-b-hub-cluster
+          path: sites/site-b/hub-clusters/hub-b-values.yaml
   template:
     metadata:
-      name: '{{path.basename}}-hub-infrastructure'
+      name: '{{.name}}'
     spec:
       project: default
       source:

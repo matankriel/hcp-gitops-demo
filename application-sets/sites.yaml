@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sites-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+        - name: hub-infra-clusters
+          path: application-sets/hub-infrastructure.yaml
+        - name: tenant-clusters
+          path: application-sets/tenant-clusters.yaml
+        
+  template:
+    metadata:
+      name: '{{.name}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        targetRevision: main
+        path: sites
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: site-namespace
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
