@@ -1,0 +1,4 @@
+apiVersion: v2
+name: applicationset-chart
+description: Helm chart for tenant resources
+version: 0.1.0

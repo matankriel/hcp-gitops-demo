@@ -5,26 +5,24 @@ metadata:
   namespace: openshift-gitops
 spec:
   generators:
-    - list:
-        elements:
-          - name: site-a
-            path: sites/site-a
-          - name: site-b
-            path: sites/site-b
+    - git:
+        repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
+        revision: kriel
+        directories:
+          - path: sites/*  # Match all site directories under 'sites/'
   template:
-    # Template for Hub Clusters
     metadata:
-      name: '{{.name}}-app'
+      name: '{{path.basename}}-app' # Use the basename of the directory for unique names
     spec:
       project: default
       source:
         repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
         targetRevision: kriel
-        path: application-sets/
-      helm:
-        parameters:
-          - name: site
-            value: '{{.name}}' # Pass the site context
+        path: application-sets/ # Apply the relevant ApplicationSet for each site
+        helm:
+          parameters:
+            - name: site
+              value: '{{path.basename}}' # Dynamically pass the site name
       destination:
         server: https://kubernetes.default.svc
         namespace: openshift-gitops
