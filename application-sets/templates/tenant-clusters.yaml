@@ -12,13 +12,9 @@ spec:
           - path: sites/{{ .Values.site }}/clusters/*.yaml # Restrict to the passed site
     - parameters:
         - name: site # Use the passed site from parent
-        - name: path
-        - name: pathBasename
-        - name: pathDir
-        - name: pathFilename
   template:
     metadata:
-      name: '{{ .Values.pathFilename }}-tenant-cluster'
+      name: '{{.path.filename}}-tenant-cluster'
     spec:
       project: default
       source:
@@ -28,11 +24,11 @@ spec:
         helm:
           valueFiles:
             - global-values/values.yaml
-            - '{{ .Values.pathDir }}/../../site.yaml'
-            - '{{ .Values.path }}'
+            - '{{.path}}/../../site.yaml'
+            - '{{.path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: clusters-{{ .Values.pathFilename }}
+        namespace: clusters-{{.path.filename}}
       syncPolicy:
         automated:
           prune: true

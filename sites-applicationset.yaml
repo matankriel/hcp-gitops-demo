@@ -25,10 +25,10 @@ spec:
               value: '{{path.basename}}'
             - name: path
               value: '{{path}}'
-            - name: pathDir
-              value: '{{path.dir}}'
-            - name: pathFilename
-              value: '{{path.filename}}'
+          #  - name: pathDir
+          #   value: '{{path.dir}}'
+          #  - name: pathFilename
+          #    value: '{{path.filename}}'
             - name: pathBasename
               value: '{{path.basename}}'
       destination:
