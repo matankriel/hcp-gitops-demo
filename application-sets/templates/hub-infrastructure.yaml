@@ -13,7 +13,7 @@ spec:
           - path: sites/{{ .Values.parameters.site }}/hub-clusters/*.yaml
   template:
     metadata:
-      name: '{{ .Values.parameters.site }}-{{ .Values.path-basename }}'
+      name: '{{ .Values.parameters.site }}-{{ .Values.parameters.pathBasename }}'
     spec:
       project: default
       source:
@@ -24,7 +24,7 @@ spec:
           valueFiles:
             - global-values/values.yaml                # Global values
             - sites/{{ .Values.parameters.site }}/site.yaml      # Site-specific values
-            - '{{ .Values.path }}'                               # Cluster-specific values
+            - '{{ .Values.parameters.path }}'                               # Cluster-specific values
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .Values.parameters.site }}-hub-cluster'  # Namespace based on the site

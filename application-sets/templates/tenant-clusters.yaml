@@ -14,7 +14,7 @@ spec:
         - name: site # Use the passed site from parent
   template:
     metadata:
-      name: {{ .Values.path-filename }}-tenant-cluster
+      name: '{{ .Values.parameters.pathFilename }}-tenant-cluster'
     spec:
       project: default
       source:
@@ -24,11 +24,11 @@ spec:
         helm:
           valueFiles:
             - global-values/values.yaml
-            - {{ .Values.path-dir }}/../../site.yaml
-            - '{{ .Values.path }}'
+            - '{{ .Values.parameters.pathDir }}/../../site.yaml'
+            - '{{ .Values.parameters.path }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: clusters-{{ .Values.path-filename }}
+        namespace: clusters-{{ .Values.parameters.pathFilename }}
       syncPolicy:
         automated:
           prune: true
