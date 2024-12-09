@@ -12,6 +12,10 @@ spec:
           - path: sites/{{ .Values.site }}/clusters/*.yaml # Restrict to the passed site
     - parameters:
         - name: site # Use the passed site from parent
+        - name: path
+        - name: pathBasename
+        - name: pathDir
+        - name: pathFilename
   template:
     metadata:
       name: '{{ .Values.pathFilename }}-tenant-cluster'
