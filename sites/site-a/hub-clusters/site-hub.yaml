@@ -1,0 +1,17 @@
+hostedControlPlane:
+  networkType: OVNKubernetes
+  clusterNetworkCIDR: 10.132.0.0/14
+  serviceNetworkCIDR: 172.31.0.0/16
+namespaces:
+  - name: site-a-monitoring
+  - name: site-a-ingress
+
+machineConfigPools:
+  - name: infra
+    role: infra
+    ignitionConfig: |
+      {
+        "ignition": {
+          "version": "3.2.0"
+        }
+      }

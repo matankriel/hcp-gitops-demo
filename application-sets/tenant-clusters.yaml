@@ -22,7 +22,7 @@ spec:
         helm:
           valueFiles:
             - ../global-values/values.yaml
-            - ../sites/site-a/site.yaml
+            - ../{{path}}/site-tenant.yaml
             - ../{{path}}/{{path.filename}}
       destination:
         server: https://kubernetes.default.svc

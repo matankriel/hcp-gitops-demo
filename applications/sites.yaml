@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/your-org/gitops-repo.git' # GitOps repository URL
     targetRevision: main                                  # Branch or tag to pull from
-    path: applicationsets/sites.yaml       # Path to the sites ApplicationSet YAML in the repository
+    path: application-sets/sites.yaml       # Path to the sites ApplicationSet YAML in the repository
   destination:
     server: https://kubernetes.default.svc               # Default ArgoCD destination server
     namespace: argocd                                    # ArgoCD namespace

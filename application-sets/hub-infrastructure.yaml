@@ -23,7 +23,7 @@ spec:
         helm:
           valueFiles:
             - global-values/values.yaml
-            - sites/{{path.dirname | split "/" | nth 1}}/site.yaml
+            - '{{path.dirname}}/site-hub.yaml'
             - "{{path}}"
       destination:
         server: https://kubernetes.default.svc
@@ -32,3 +32,4 @@ spec:
         automated:
           prune: true
           selfHeal: true
+  #sites/{{path.dirname | split "/" | nth 1}}/site-hub.yaml
