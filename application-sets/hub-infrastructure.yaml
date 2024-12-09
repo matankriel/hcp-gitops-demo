@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: hub-infrastructure
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   generators:
     - git:
-        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        repoURL: 'https://github.com/ymatankriel/hcp-gitops-demo.git'
         revision: main
         files:
           # Dynamically match hub-clusters YAMLs for the specific site
@@ -17,7 +17,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        repoURL: 'https://github.com/ymatankriel/hcp-gitops-demo.git'
         path: hub-infrastructure-chart # Path to the Helm chart for hub clusters
         targetRevision: main
         helm:

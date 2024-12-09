@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: tenant-clusters
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   generators:
     - git:
-        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
         revision: main
         files:
           - path: sites/{{parameters.site}}/clusters/*.yaml # Restrict to the passed site
@@ -18,7 +18,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/your-org/gitops-repo.git'
+        repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
         path: tenant-chart
         targetRevision: main
         helm:

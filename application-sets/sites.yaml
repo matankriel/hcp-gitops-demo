@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: sites-applicationset
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   generators:
     - list:
@@ -18,7 +18,7 @@ spec:
       spec:
         project: default
         source:
-          repoURL: 'https://github.com/your-org/gitops-repo.git'
+          repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
           targetRevision: main
           path: application-sets/hub-infrastructure.yaml
         helm:
@@ -27,7 +27,7 @@ spec:
               value: '{{.name}}' # Pass the site context
         destination:
           server: https://kubernetes.default.svc
-          namespace: argocd
+          namespace: openshift-gitops
         syncPolicy:
           automated:
             prune: true
@@ -39,7 +39,7 @@ spec:
       spec:
         project: default
         source:
-          repoURL: 'https://github.com/your-org/gitops-repo.git'
+          repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
           targetRevision: main
           path: application-sets/tenant-clusters.yaml
         helm:
@@ -48,7 +48,7 @@ spec:
               value: '{{.name}}' # Pass the site context
         destination:
           server: https://kubernetes.default.svc
-          namespace: argocd
+          namespace: openshift-gitops
         syncPolicy:
           automated:
             prune: true

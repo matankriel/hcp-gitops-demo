@@ -2,16 +2,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: sites-application
-  namespace: argocd
+  namespace: openshift-gitops
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/your-org/gitops-repo.git' # GitOps repository URL
+    repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git' # GitOps repository URL
     targetRevision: main                                  # Branch or tag to pull from
     path: application-sets/sites.yaml       # Path to the sites ApplicationSet YAML in the repository
   destination:
     server: https://kubernetes.default.svc               # Default ArgoCD destination server
-    namespace: argocd                                    # ArgoCD namespace
+    namespace: openshift-gitops                                    # ArgoCD namespace
   syncPolicy:
     automated:
       prune: true                                        # Remove out-of-sync resources
