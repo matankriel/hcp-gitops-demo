@@ -1,2 +1,6 @@
 parameters:
   site: site-default
+  path: /temp/value
+  path-dir: /temp/value
+  path-filename: tmpName
+  path-basename: /temp/value

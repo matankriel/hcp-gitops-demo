@@ -22,6 +22,10 @@ spec:
         helm:
           parameters:
             - site: '{{path.basename}}' # Dynamically pass the site name
+              path: '{{Path}}'
+              path-dir: '{{path.dir}}'
+              path.filename: '{{path.filename}}'
+              path.basename: '{{path.basename}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: openshift-gitops
