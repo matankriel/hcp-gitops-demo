@@ -21,7 +21,9 @@ spec:
         path: application-sets/ # Apply the relevant ApplicationSet for each site
         helm:
           parameters:
-            - site: '{{path.basename}}' # Dynamically pass the site name
+            - name: testparam
+              value: valuetest
+              site: '{{path.basename}}' # Dynamically pass the site name
               path: '{{Path}}'
               path-dir: '{{path.dir}}'
               path.filename: '{{path.filename}}'
