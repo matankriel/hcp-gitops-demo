@@ -15,7 +15,7 @@ spec:
         - name: site # Use the passed site from parent
   template:
     metadata:
-      name: '{{ .Values.site }}-hub-cluster-{{"{{"}}path.filename{{"}}"}}'
+      name: '{{"{{"}}path.filename{{"}}"}}'
     spec:
       project: default
       source:
