@@ -7,8 +7,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: {{ .repoURL }}
-    targetRevision: HEAD
+    repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git'
+    targetRevision: kriel
     path: application-sets
     helm:
       parameters:
