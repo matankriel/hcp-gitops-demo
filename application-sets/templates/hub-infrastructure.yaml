@@ -13,7 +13,7 @@ spec:
           - path: sites/{{ .Values.site }}/hub-clusters/*.yaml
   template:
     metadata:
-      name: '{{ .Values.site }}-{{.path.basename}}'
+      name: '{{ .Values.site }}-hub-cluster-{{.path.filename}}'
     spec:
       project: default
       source:

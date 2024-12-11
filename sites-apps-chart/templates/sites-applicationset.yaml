@@ -1,0 +1,25 @@
+{{- range .Values.sites }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: {{ .repoURL }}
+    targetRevision: HEAD
+    path: application-sets
+    helm:
+      parameters:
+      - name: site
+        value: {{ .name }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-gitops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+{{- end }}

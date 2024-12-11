@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sites-applications-chart
+description: Helm chart for sites applications
+version: 0.1.0
