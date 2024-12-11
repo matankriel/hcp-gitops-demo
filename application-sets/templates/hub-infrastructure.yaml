@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: '{{ .Values.site }}hub-infrastructure'
+  name: '{{ .Values.site }}-hub-infrastructure'
   namespace: openshift-gitops
 spec:
   generators:

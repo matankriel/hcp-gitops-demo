@@ -28,9 +28,8 @@ spec:
             - '{{.path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: clusters-{{.path.filename}}
+        namespace: 'clusters-{{.path.filename}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
----
