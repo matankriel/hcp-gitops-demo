@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/matankriel/hcp-gitops-demo.git' # GitOps repository URL
     targetRevision: kriel                                  # Branch or tag to pull from
-    path: .       # Path to the sites ApplicationSet YAML in the repository
+    path: sites-apps-chart       # Path to the sites ApplicationSet YAML in the repository
   destination:
     server: https://kubernetes.default.svc               # Default ArgoCD destination server
     namespace: openshift-gitops                                    # ArgoCD namespace
